@@ -1,0 +1,403 @@
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f7f8fa;
+  color: #222;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2rem 3rem 0 3rem;
+  z-index: 10;
+}
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.nav-btn {
+  background: #fff;
+  border: 1.5px solid #fff;
+  color: #646cff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px #646cff22;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.nav-btn:hover {
+  background: #646cff;
+  color: #fff;
+  border: 1.5px solid #646cff;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  background: linear-gradient(120deg, #646cff 0%, #b3baff 100%);
+  color: #fff;
+  border-radius: 0 0 2rem 2rem;
+  box-shadow: 0 4px 24px 0 #646cff22;
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
+}
+.mascot {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 16px #646cff33;
+  font-size: 4rem;
+  border: 4px solid #646cff;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.get-started {
+  background: #fff;
+  color: #646cff;
+  border: none;
+  padding: 1.1rem 2.8rem;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px #646cff33;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+.get-started:hover {
+  background: #646cff;
+  color: #fff;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 0 0 0;
+  flex-wrap: wrap;
+}
+.feature-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px #646cff11;
+  padding: 2rem 2.5rem;
+  min-width: 220px;
+  max-width: 320px;
+  flex: 1 1 220px;
+  margin: 0.5rem;
+  text-align: left;
+}
+.feature-card h2 {
+  margin-top: 0;
+  color: #646cff;
+}
+.feature-card p {
+  color: #444;
+}
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(247, 248, 250, 0.98);
+  z-index: 100;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 300px;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 12px #646cff11;
+}
+.auth-form input {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #646cff44;
+  border-radius: 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.auth-form input:focus {
+  border: 1.5px solid #646cff;
+}
+.auth-form button {
+  background: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.auth-form button:hover {
+  background: #4b50b7;
+}
+.auth-error {
+  color: #d32f2f;
+  margin-top: 1rem;
+}
+.auth-success {
+  color: #388e3c;
+  margin-top: 1rem;
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* --- Dashboard Styles --- */
+.dashboard-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 0 0 60px 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  width: 100vw;
+  box-sizing: border-box;
+}
+.dashboard-header {
+  background: #fff;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 56px 32px 32px 32px;
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dashboard-header h2 {
+  font-size: 2.2rem;
+  color: #2d3a4a;
+  margin-bottom: 8px;
+}
+.dashboard-subtitle {
+  color: #5a6a85;
+  font-size: 1.1rem;
+}
+.dashboard-section {
+  margin: 0 auto 40px auto;
+  max-width: 1400px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 40px 32px 32px 32px;
+}
+.dashboard-section h3 {
+  color: #2d3a4a;
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+}
+.subjects-grid, .tools-grid {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.subject-card, .tool-card {
+  background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+  padding: 32px 24px;
+  min-width: 220px;
+  max-width: 320px;
+  flex: 1 1 260px;
+  text-align: center;
+  margin-bottom: 18px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.subject-card:hover, .tool-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(44,62,80,0.13);
+}
+.subject-card h4, .tool-card h4 {
+  color: #2d3a4a;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+.subject-card p, .tool-card p {
+  color: #5a6a85;
+  margin-bottom: 14px;
+}
+.dashboard-section .btn {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 1px 4px rgba(44,62,80,0.08);
+}
+.dashboard-section .btn:hover {
+  background: #356ae6;
+}
+.progress-summary {
+  margin-top: 18px;
+  text-align: center;
+}
+.progress-bar-bg {
+  background: #e0eafc;
+  border-radius: 8px;
+  width: 100%;
+  height: 18px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  transition: width 0.4s;
+}
+@media (max-width: 1200px) {
+  .dashboard-header, .dashboard-section {
+    max-width: 98vw;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .subjects-grid, .tools-grid {
+    gap: 18px;
+  }
+}
+@media (max-width: 700px) {
+  .dashboard-header, .dashboard-section {
+    padding: 18px 6px 12px 6px;
+    max-width: 100vw;
+  }
+  .subjects-grid, .tools-grid {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .subject-card, .tool-card {
+    min-width: 0;
+    max-width: 100%;
+    padding: 18px 8px;
+  }
+}
+
+/* Subject toggle card styles for EditSubjects */
+.subject-toggle-card {
+  position: relative;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+}
+.subject-toggle-card.selected {
+  border: 2.5px solid #646cff;
+  background: linear-gradient(120deg, #e0eafc 0%, #b3baff 100%);
+  box-shadow: 0 4px 16px #646cff22;
+}
+.subject-toggle {
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  border-radius: 12px;
+  background: #e0eafc;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.2s;
+}
+.subject-toggle.on {
+  background: #646cff;
+}
+.subject-toggle::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 4px #646cff33;
+}
+.subject-toggle.on::after {
+  left: 18px;
+  background: #fff;
+}
