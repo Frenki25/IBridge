@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ function TopicsPage() {
   const topics = (IB_TOPICS as Record<string, { topic: string; subtopics: string[] }[]>)[normalized || ''];
   const [completedMap, setCompletedMap] = useState<Record<string, boolean>>({});
 
-  const fetchAllCompletion = async () => {
+  const fetchAllCompletion = useCallback(async (): Promise<void> => {
     const user = auth.currentUser;
     if (!user || !topics) return;
     const newMap: Record<string, boolean> = {};
@@ -28,7 +28,7 @@ function TopicsPage() {
       }
     }
     setCompletedMap(newMap);
-  };
+  }, [normalized, topics]);
 
   useEffect(() => {
     fetchAllCompletion();
@@ -36,7 +36,7 @@ function TopicsPage() {
     const handler = () => fetchAllCompletion();
     window.addEventListener('subtopicCompletionChanged', handler);
     return () => window.removeEventListener('subtopicCompletionChanged', handler);
-  }, [normalized, topics]);
+  }, [fetchAllCompletion]);
 
   return (
     <div className="dashboard-page" style={{ minHeight: '100vh', padding: 24 }}>

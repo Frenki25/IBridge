@@ -93,9 +93,7 @@ function Dashboard() {
   const [timerElapsed, setTimerElapsed] = useState(0);
   const [user, setUser] = useState(() => auth.currentUser);
   const [studyTime, setStudyTime] = useState<number>(0);
-  const timerInterval = useRef<NodeJS.Timeout | null>(null);
-  // Track which subject cards are expanded
-  const [expandedSubjects, setExpandedSubjects] = useState<{ [subject: string]: boolean }>({});
+  // Removed unused timerInterval and expandedSubjects
   const [subjectProgress, setSubjectProgress] = useState<Record<string, number>>({});
 
   // Load per-subject progress from Firebase
@@ -116,7 +114,9 @@ function Dashboard() {
                 const ref = doc(db, 'users', user.uid, 'completion', `${normalized}_${t.topic}_${sub}`);
                 const snap = await getDoc(ref);
                 if (snap.data()?.completed) completed++;
-              } catch {}
+              } catch {
+                // Optionally log error or handle it
+              }
             }
           }
         }
@@ -134,8 +134,8 @@ function Dashboard() {
       if (firebaseUser) {
         getDoc(doc(db, 'users', firebaseUser.uid)).then((userDoc) => {
           if (userDoc.exists()) {
-            const data = userDoc.data() as any;
-            setStudyTime(data.totalStudyTime || 0);
+            const data = userDoc.data() as { totalStudyTime?: number };
+            setStudyTime(typeof data.totalStudyTime === 'number' ? data.totalStudyTime : 0);
           }
         });
       }
@@ -156,7 +156,7 @@ function Dashboard() {
     if (location.state && location.state.selectedSubjects) {
       setSelectedSubjects(location.state.selectedSubjects);
     }
-    // eslint-disable-next-line
+    // Removed unused eslint-disable directive
   }, [location.state]);
 
   // Timer logic

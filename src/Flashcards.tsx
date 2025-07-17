@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IB_TOPICS } from './ibTopics';
 import { useNavigate } from 'react-router-dom';
 import './App.css';

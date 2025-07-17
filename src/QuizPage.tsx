@@ -1,10 +1,17 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IB_SUBTOPIC_INFO } from './ibSubtopicInfo';
 import './App.css';
 
-function aiGenerateQuestion(subject, topic, type) {
+type QuestionType = 'multiple' | 'short' | 'long';
+type QuizQuestion = {
+  question: string;
+  answer: string;
+  options?: string[];
+};
+
+function aiGenerateQuestion(subject: string, topic: string, type: QuestionType): QuizQuestion | null {
   // Simulate AI generation using explanation text
   const explanation = IB_SUBTOPIC_INFO[subject]?.[topic];
   if (!explanation) return null;
@@ -37,24 +44,23 @@ function QuizPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { subject, topic } = location.state || {};
-  const [type, setType] = useState(null);
-  const [question, setQuestion] = useState(null);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [result, setResult] = useState(null);
+  const [type, setType] = useState<QuestionType | null>(null);
+  const [question, setQuestion] = useState<QuizQuestion | null>(null);
+  const [userAnswer, setUserAnswer] = useState<string>('');
+  const [result, setResult] = useState<string>('');
 
-  const handleTypeSelect = (t) => {
+  const handleTypeSelect = (t: QuestionType) => {
     setType(t);
-    setResult(null);
+    setResult('');
     setUserAnswer('');
     setQuestion(aiGenerateQuestion(subject, topic, t));
   };
 
   const handleSubmit = () => {
     if (!question) return;
-    if (type === 'multiple') {
+    if (type === 'multiple' && question.options) {
       setResult(userAnswer === question.answer ? 'Correct!' : 'Incorrect.');
     } else {
-      // For short/long answer, just show a placeholder check
       setResult('Answer submitted! (AI evaluation coming soon)');
     }
   };
@@ -83,7 +89,7 @@ function QuizPage() {
             <div style={{ fontSize: '1.18rem', fontWeight: 700, marginBottom: 18 }}>{question.question}</div>
             {type === 'multiple' ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 18 }}>
-                {question.options.map((opt, idx) => (
+                {question.options && question.options.map((opt, idx) => (
                   <button
                     key={idx}
                     className={`btn ${userAnswer === opt ? 'selected' : ''}`}

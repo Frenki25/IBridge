@@ -1,4 +1,12 @@
+
 import React, { useEffect, useRef } from 'react';
+
+// Minimal Desmos type for window.Desmos
+interface DesmosAPI {
+  GraphingCalculator: (element: HTMLElement, options?: Record<string, unknown>) => { destroy: () => void };
+}
+
+type WindowWithDesmos = Window & { Desmos?: DesmosAPI };
 
 // This component uses the Desmos Graphing Calculator widget
 // Docs: https://www.desmos.com/api/v1.6/docs/index.html
@@ -7,17 +15,18 @@ const DESMOS_CDN = 'https://www.desmos.com/api/v1.6/calculator.js?apiKey=dcb3170
 
 const GraphingCalculator: React.FC = () => {
   const calculatorRef = useRef<HTMLDivElement>(null);
-  const desmosInstance = useRef<any>(null);
+  const desmosInstance = useRef<{ destroy: () => void } | null>(null);
 
   useEffect(() => {
     // Load Desmos script if not already loaded
-    if (!(window as any).Desmos) {
+    if (!(window as WindowWithDesmos).Desmos) {
       const script = document.createElement('script');
       script.src = DESMOS_CDN;
       script.async = true;
       script.onload = () => {
-        if (calculatorRef.current && (window as any).Desmos) {
-          desmosInstance.current = (window as any).Desmos.GraphingCalculator(calculatorRef.current, {
+        const win = window as WindowWithDesmos;
+        if (calculatorRef.current && win.Desmos) {
+          desmosInstance.current = win.Desmos.GraphingCalculator(calculatorRef.current, {
             expressions: true,
             settingsMenu: true,
             zoomButtons: true,
@@ -29,8 +38,9 @@ const GraphingCalculator: React.FC = () => {
       };
       document.body.appendChild(script);
     } else {
-      if (calculatorRef.current && (window as any).Desmos) {
-        desmosInstance.current = (window as any).Desmos.GraphingCalculator(calculatorRef.current, {
+      const win = window as WindowWithDesmos;
+      if (calculatorRef.current && win.Desmos) {
+        desmosInstance.current = win.Desmos.GraphingCalculator(calculatorRef.current, {
           expressions: true,
           settingsMenu: true,
           zoomButtons: true,

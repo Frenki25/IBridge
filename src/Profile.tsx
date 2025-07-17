@@ -6,8 +6,16 @@ import './App.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
+type UserProfile = {
+  name: string;
+  surname: string;
+  email: string;
+  totalStudyTime?: number;
+  badges?: string[];
+};
+
 function Profile() {
-  const [profile, setProfile] = useState<{name: string, surname: string, email: string, totalStudyTime?: number, badges?: string[] } | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [editProfile, setEditProfile] = useState<{name: string, surname: string, email: string}>({ name: '', surname: '', email: '' });
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -31,16 +39,11 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       console.log('Fetching profile for user:', user);
-      if (user === undefined) return; // still loading auth
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+      if (!user) return; // still loading auth
       try {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
-        console.log('Firestore userDoc.exists:', userDoc.exists());
         if (userDoc.exists()) {
-          const data = userDoc.data() as any;
+          const data = userDoc.data() as UserProfile;
           setProfile(data);
           setEditProfile({
             name: data.name || '',
@@ -48,8 +51,8 @@ function Profile() {
             email: data.email || '',
           });
         }
-      } catch (err) {
-        console.error('Error fetching user profile:', err);
+      } catch {
+        console.error('Error fetching user profile');
       }
       setLoading(false);
     };
@@ -83,12 +86,11 @@ function Profile() {
         name: editProfile.name,
         surname: editProfile.surname,
         email: editProfile.email,
-        photoURL: editProfile.photoURL || '',
       });
       setProfile(editProfile);
       setEditing(false);
       setSuccess('Profile updated!');
-    } catch (err) {
+    } catch {
       setError('Failed to update profile.');
     }
     setUploading(false);

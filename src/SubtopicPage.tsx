@@ -23,7 +23,7 @@ function SubtopicPage() {
     IB_SUBTOPIC_INFO[normalized]?.[topic]?.[subtopic || ''];
 
   // Firebase completion state
-  const fetchCompletion = async () => {
+  const fetchCompletion = React.useCallback(async () => {
     setLoading(true);
     try {
       const user = auth.currentUser;
@@ -39,11 +39,11 @@ function SubtopicPage() {
       setCompleted(false);
     }
     setLoading(false);
-  };
+  }, [normalized, topic, subtopic]);
 
   useEffect(() => {
     fetchCompletion();
-  }, [normalized, topic, subtopic]);
+  }, [normalized, topic, subtopic, fetchCompletion]);
 
   async function handleCheck(e: React.ChangeEvent<HTMLInputElement>) {
     const user = auth.currentUser;
